@@ -6,6 +6,9 @@
 ### Work Flow 
 ![Aprokmasi work flow](static/img/aprokmasi.png)
 
+### Result Operation
+![Result operation](static/img/result_aproksimasi.png)
+
 ### Requirement
 - Python ^3.9
 - Flask ^2.1
@@ -28,3 +31,5 @@
 ```
 flask run
 ```
+
+## ``Welcome for contribute!``
