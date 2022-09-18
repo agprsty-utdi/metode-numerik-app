@@ -4,7 +4,7 @@
 from flask import Flask, jsonify, render_template, request
 from app.error import register_error_handler
 from app.exception.http_error import BadRequestException
-from logic.aprokmasi import Aprokmasi
+from domain.aprokmasi import Aprokmasi
 
 app = Flask(__name__)
 app = register_error_handler(app)

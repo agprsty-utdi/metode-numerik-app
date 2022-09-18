@@ -28,7 +28,8 @@
           <input type=number step=1 min="0" max="100" class="form-control" id="signifikan" placeholder="example: 3">
         </div>
         <div class="text-center mt-5">
-          <button type="submit" class="btn btn-outline-primary" id="submit">Submit</button>
+          <button type="submit" class="btn btn-primary" id="submit">Submit</button>
+          <button type="submit" class="btn btn-outline-warning" onClick="refreshPage()">Clear</button>
         </div>
       </div>
       <div class="col">
@@ -121,5 +122,9 @@
     h4.append(text3);
     $("#description").append(h4);
   }
+
+  function refreshPage(){
+    window.location.reload();
+  } 
 </script>
 {% endblock %}
