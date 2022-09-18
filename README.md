@@ -1,7 +1,7 @@
-## Metode Numerik Apps 
+## Metode Numerik 
 
 ### Feature
-- Calculate the value from real
+- Aproksimasi error dan literasi
 
 ### Work Flow 
 ![Aprokmasi work flow](static/img/aprokmasi.png)
