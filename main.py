@@ -10,17 +10,23 @@ app = Flask(__name__)
 app = register_error_handler(app)
 app.config.from_pyfile('./config/config.py')
 
+base_url = app.config.get("GENERAL").get("base_url")
+
 @app.route('/', methods=["GET"])
 def welcome_view():
     return render_template(
         "welcome.html",
-        title="Welcome"
+        title="Welcome",
+        base_url=base_url
     )
 
 @app.route('/aproksimasi', methods=["GET"])
 def aprokmasi_view():
-    base_url = app.config.get("GENERAL").get("base_url")
-    return render_template("aprokmasi.html", base_url=base_url)
+    return render_template(
+        "aprokmasi.html", 
+        title="Aproksimasi",
+        base_url=base_url
+    )
 
 @app.route('/aproksimasi', methods=["POST"])
 def aprokmasi():

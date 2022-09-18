@@ -10,3 +10,6 @@ venv/
 
 # IDE and editor
 .vscode/
+
+# configuration
+config/*.py

@@ -13,16 +13,18 @@ class Aprokmasi(object):
     def __init__(self, data: dict):
         self.angka_exp = safe_float(data.get("angka_exp", 0))
         self.angka_sign = safe_int(data.get("angka_sign", 0))
-        self.hasil_angka_exp = safe_float(math.exp(self.angka_exp))
+        self.hasil_angka_exp = 0
 
     def prevalidate(self) -> MultiValidationException:
         error = MultiValidationException()
 
-        if self.angka_exp == 0:
-            error.push_error("angka_exp", "Invalid input angka exponen.")
+        if self.angka_exp == 0 or self.angka_exp > 50:
+            error.push_error("angka_exp", "Invalid input angka exponen. Range input 0.1-50.")
+        else:
+            self.hasil_angka_exp = safe_float(math.exp(self.angka_exp))
 
-        if self.angka_sign == 0:
-            error.push_error("angka_sign", "Invalid input angka signifikan.") 
+        if self.angka_sign == 0 or self.angka_sign > 50:
+            error.push_error("angka_sign", "Invalid input angka signifikan. Range input: 1-50.") 
 
         return error
 
@@ -77,7 +79,7 @@ class Aprokmasi(object):
         return [
             {
                 "iterasi_ke": 1,
-                "nilai_x": nilai_x,
+                "nilai_x": 1,
             },
             {
                 "iterasi_ke": 2,

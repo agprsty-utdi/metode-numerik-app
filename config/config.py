@@ -4,9 +4,9 @@
 # general
 GENERAL = {
     "app_name": "metode-numerik-app",
-    "app_port": 8100,
+    "app_port": 5000,
     "time_zone": "Asia/Jakarta",
-    "base_url": "http://localhost:8100",
+    "base_url": "http://localhost:5000",
     "logging_level": "DEBUG",
     "localization": "id_id",
     "lang": "id",
