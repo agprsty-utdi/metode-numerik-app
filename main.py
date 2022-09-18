@@ -12,14 +12,17 @@ app.config.from_pyfile('./config/config.py')
 
 @app.route('/', methods=["GET"])
 def welcome_view():
-    return render_template("welcome.html")
+    return render_template(
+        "welcome.html",
+        title="Welcome"
+    )
 
-@app.route('/aprokmasi', methods=["GET"])
+@app.route('/aproksimasi', methods=["GET"])
 def aprokmasi_view():
     base_url = app.config.get("GENERAL").get("base_url")
     return render_template("aprokmasi.html", base_url=base_url)
 
-@app.route('/aprokmasi', methods=["POST"])
+@app.route('/aproksimasi', methods=["POST"])
 def aprokmasi():
     data = __get_form_json_input(request.json)
     

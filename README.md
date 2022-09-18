@@ -4,11 +4,12 @@
 - Calculate the value from real
 
 ### Work Flow 
-![Aprokmasi work flow](asset/img/aprokmasi.png)
+![Aprokmasi work flow](static/img/aprokmasi.png)
 
 ### Requirement
 - Python ^3.9
 - Flask ^2.1
+- Jinja2 ^3.1
 
 ### Installation 
 - clone project
