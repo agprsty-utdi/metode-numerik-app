@@ -15,7 +15,8 @@ def safe_int(data, default=0)->int:
 def safe_float(data, default=0)->float:
     '''safely cast variable value to float with 9 digits after comma'''
     try:
-        data = float(round(data, 9))
+        to_float = float(data)
+        data = round(to_float, 9)
     except (ValueError, TypeError):
         data = default
 

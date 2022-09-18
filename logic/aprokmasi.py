@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import math
-from app.libs.utils import safe_float
+from app.libs.utils import safe_float, safe_int
 from app.exception.http_error import MultiValidationException
 
 class Aprokmasi(object):
@@ -11,33 +11,32 @@ class Aprokmasi(object):
     hasil_angka_exp: float
 
     def __init__(self, data: dict):
-        self.angka_exp = data.get("angka_exp", 0)
-        self.angka_sign = data.get("angka_sign", 0)
+        self.angka_exp = safe_float(data.get("angka_exp", 0))
+        self.angka_sign = safe_int(data.get("angka_sign", 0))
         self.hasil_angka_exp = safe_float(math.exp(self.angka_exp))
 
     def prevalidate(self) -> MultiValidationException:
         error = MultiValidationException()
 
-        if not self.angka_exp and type(self.angka_exp) != float:
+        if self.angka_exp == 0:
             error.push_error("angka_exp", "Invalid input angka exponen.")
 
-        if not self.angka_sign and type(self.angka_sign) != int:
+        if self.angka_sign == 0:
             error.push_error("angka_sign", "Invalid input angka signifikan.") 
 
         return error
 
     def to_dict(self) -> dict:
         aprokmasi = self.__aprokmasi()
+        aprokmasi["e_exp"] = self.hasil_angka_exp
         
-        return {
-            "hasil": aprokmasi,
-            "desc": "1234",
-        }
+        return aprokmasi
 
     def __aprokmasi(self) -> dict:
         nilai_es = self.angka_exp * math.pow(10, 2-self.angka_sign)
         init_nilai_x = [self.__nilai_x_iterasi1()]
-        
+        process = self.__init_process_iterasi(init_nilai_x[0])
+
         i = 2
         while True:
             x = init_nilai_x.pop()
@@ -45,29 +44,48 @@ class Aprokmasi(object):
             nilai_et = self.__nilai_et(nilai_x)
             nilai_ea = self.__nilai_ea(nilai_x, x)
             
+            process.append({
+                "iterasi_ke": i+1,
+                "nilai_x": nilai_x,
+                "nilai_et": nilai_et,
+                "nilai_ea": nilai_ea,
+            })
             init_nilai_x.append(nilai_x)
             i += 1
 
             if nilai_ea < nilai_es:
                 break
 
-            if i >= 100:
+            if i >= 1000:
                 break
         
         result = {
-            "iterasi_ke": i,
-            "nilai_x": nilai_x,
-            "nilai_et": nilai_et,
-            "nilai_ea": nilai_ea,
-        }
+            "process": process,
+            "description": f"Jadi, pada iterasi ke-6 diperoleh hasil bahwa e{self.angka_exp} = {nilai_x} dengan error aproksimasi {nilai_ea}% (kurang dari {nilai_es}%)",
+            "galat": nilai_es,
+        } 
 
-        if i >= 100:
+        if i >= 1000:
             result["error"] = True
 
-        return result 
+        return result
 
     def __nilai_x_iterasi1(self) -> float:
         return 1 + self.angka_exp
+
+    def __init_process_iterasi(self, nilai_x: float = 0) -> list:
+        return [
+            {
+                "iterasi_ke": 1,
+                "nilai_x": nilai_x,
+            },
+            {
+                "iterasi_ke": 2,
+                "nilai_x": nilai_x,
+                "nilai_et": self.__nilai_et(nilai_x),
+                "nilai_ea": self.__nilai_ea(nilai_x, 1),
+            }
+        ]
 
     def __nilai_x(self, init_nilai_x: float = 0, faktorial: int = 0) -> float:
         angka_exp = math.pow(self.angka_exp, faktorial)

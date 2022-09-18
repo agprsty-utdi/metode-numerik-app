@@ -3,8 +3,12 @@
 ### Feature
 - Calculate the value from real
 
+### Work Flow 
+![Aprokmasi work flow](asset/img/aprokmasi.png)
+
 ### Requirement
 - Python ^3.9
+- Flask ^2.1
 
 ### Installation 
 - clone project
@@ -17,15 +21,7 @@
   . venv/bin/activate
   ```  
 - pip install -U pip & pip install -r requirements.txt
-- set env variable : 
-
-```
-FLASK_APP_NAME=metode-numerik-app
-FLASK_ENV=<your deployment environment>
-FLASK_DEBUG=<0 | 1>
-```
 - copy ``config/config.py.example`` to ``config/config.py``
-- copy ``.env.example`` to ``.env`` (if you are using .env file)
 
 ### Running
 ```
