@@ -63,7 +63,9 @@ class Aprokmasi(object):
         
         result = {
             "process": process,
-            "description": f"Jadi, pada iterasi ke-6 diperoleh hasil bahwa e{self.angka_exp} = {nilai_x} dengan error aproksimasi {nilai_ea}% (kurang dari {nilai_es}%)",
+            "description": f"Jadi, pada iterasi ke-6 diperoleh \
+                hasil bahwa e{self.angka_exp} = {nilai_x} dengan \
+                error aproksimasi {nilai_ea}% (kurang dari {nilai_es}%)",
             "galat": nilai_es,
         } 
 

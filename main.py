@@ -1,14 +1,17 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+import os
 from flask import Flask, jsonify, render_template, request
 from app.error import register_error_handler
 from app.exception.http_error import BadRequestException
+from app.libs.utils import safe_int
 from domain.aprokmasi import Aprokmasi
 
+os.environ.get("FLASK_ENV", default="production")
 app = Flask(__name__)
 app = register_error_handler(app)
-app.config.from_pyfile('./config/config.py')
+app.config.from_pyfile(f'{os.getcwd()}/config/config.py')
 
 base_url = app.config.get("GENERAL").get("base_url")
 
@@ -64,3 +67,14 @@ def __check_operation_error(data: dict) -> bool:
         result = True
 
     return result
+
+if __name__ == '__main__':
+    app.run(
+        debug=True,
+        host='0.0.0.0', 
+        port=safe_int(
+            app.config\
+                .get("GENERAL", {})\
+                .get("app_port", 8000)
+        )
+    )

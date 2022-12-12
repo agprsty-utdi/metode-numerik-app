@@ -29,7 +29,7 @@
 
 ### Running
 ```
-flask run
+./run.sh
 ```
 
 ## ``Welcome for contribute!``
