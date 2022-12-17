@@ -23,6 +23,13 @@ def welcome_view():
         base_url=base_url
     )
 
+@app.route('/introduction-aproksimasi', methods=["GET"])
+def introduction_aprokmasi():
+    return render_template(
+        "introduction-aprokmasi.html", 
+        title="Introduction Aproksimasi",
+    )
+
 @app.route('/aproksimasi', methods=["GET"])
 def aprokmasi_view():
     return render_template(
@@ -52,6 +59,13 @@ def aprokmasi():
         },
         "data": result,
     })
+
+@app.route('/introduction-polinom-newton', methods=["GET"])
+def introduction_polinom_newton():
+    return render_template(
+        "introduction-polinom-newton.html", 
+        title="Introduction Polinom Newton",
+    )
 
 def __get_form_json_input(args: dict)->dict:
     """Form json input"""

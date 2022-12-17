@@ -1,0 +1,21 @@
+{% extends 'layout.html' %}
+
+{% block css %}
+  <link href="{{ url_for('static', filename='css/index.css') }}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+  <div class="container my-5">
+    <section class="body text-center text-secondary">
+      <h1 class="title">Interpolasi Polinomial Newton</h1>
+      <div class="feature mt-3">
+        <h3 class="feature__title">Workflow Programs</h3>
+        <!-- <img src="{{ url_for('static', filename='img/aprokmasi.png') }}" alt="aproksimasi-work-flow" width="50%"> -->
+      </div>
+    </section>
+
+    <section class="foot text-center mt-5">
+      <a href="#" class="btn btn-lg btn-outline-secondary" role="button" aria-pressed="true">Let's go try it!</a>
+    </section>
+  </div>
+{% endblock %}
