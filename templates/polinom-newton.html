@@ -1,0 +1,119 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="container">
+    <h1 class="title text-center mt-5">Interpolasi Polinomial Newton</h1>
+    <section class="question">
+        <p class="mt-5">
+        <h5 class="text-primary">Contoh Soal:</h5>
+        <span class="text-secondary">Kecepatan (mil/jam)</span>&nbsp;: 10, 20, 30, 40, 50, 60, 70;
+        <br> <span class="text-secondary">Jarak henti (feet)</span>&emsp;&emsp;: 12, 21, 46, 65, 90, 111, 148;
+        <br>Perkirakan dengan interpolasi kuadrat jarak henti yang dibutuhkan bagi sebuah kendaraan yang melaju dengan
+        kecepatan 45 mil/jam.
+        </p>
+    </section>
+
+    <div class="row mt-5">
+        <div class="col"></div>
+        <div class="col-md-auto">
+            <div class="form-group">
+                <label for="InputExponen">Masukkan inputan:</label>
+                <input type=number step=1 min="0" max="70" oninput="validity.valid||(value='');" class="form-control"
+                    id="xinput" placeholder="45">
+                <small class="form-text text-muted">Required format input integer (Range: 10-70)</small>
+            </div>
+
+            <div class="text-center mt-5">
+                <button type="submit" class="btn btn-primary" id="submit">Submit</button>
+                <button type="submit" class="btn btn-outline-warning" onClick="refreshPage()">Clear</button>
+            </div>
+        </div>
+        <div class="col"></div>
+    </div>
+
+    <section class="hasil" id="hasil"></section>
+    <table class="table table-bordered mt-3" id="results">
+        <caption>Keterangan: <br>Y = Nilai Y (Jarak Henti) <br>ST = Selisih Terbagi</caption>
+        <thead>
+            <tr>
+                <th scope="col">Iterasi</th>
+                <th scope="col">Y</th>
+                <th scope="col">ST-1</th>
+                <th scope="col">ST-2</th>
+                <th scope="col">ST-3</th>
+                <th scope="col">ST-4</th>
+                <th scope="col">ST-5</th>
+                <th scope="col">ST-6</th>
+            </tr>
+        <tbody></tbody>
+        </thead>
+    </table>
+
+    <section class="mt-3 text-center">
+        <a href="/" class="btn btn-lg btn-outline-secondary" role="button" aria-pressed="true">Back to home</a>
+    </section>
+</div>
+{% endblock %}
+
+{% block js %}
+<script>
+    const url = "{{base_url}}/api/polinom-newton";
+    const btn_submit = "#submit";
+
+    $(document).ready(function () {
+        $(btn_submit).click(function () {
+            const xinput = $('input[id="xinput"]').val();
+
+            $.ajax({
+                url: url,
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                data: JSON.stringify({
+                    "xinput": xinput,
+                }),
+                success: function (data) {
+                    $("#results tbody tr").remove();
+                    $("#hasil h4").remove();
+                    $("#description h5").remove();
+                    create_list(data.data);
+                },
+                error: function (xhr, status, error) {
+                    const data = JSON.parse(xhr.responseText);
+                    const msg = data.meta.error;
+                    console.log(msg);
+                    alert("Oppss.. Operation error.");
+                }
+            });
+        });
+    });
+
+    function create_list(params) {
+        // Create datatable
+        const process = params.calculate;
+        $.each(process, function (i, item) {
+            let $tr = $('<tr>').append(
+                $('<td>').text(i + 1),
+                $('<td>').text(item[0]),
+                $('<td>').text(item[1]),
+                $('<td>').text(item[2]),
+                $('<td>').text(item[3]),
+                $('<td>').text(item[4]),
+                $('<td>').text(item[5]),
+                $('<td>').text(item[6]),
+            ).appendTo('#results tbody');
+        });
+
+        // Add value galat
+        let result = document.createElement("h4");
+        let text1 = document.createTextNode(`Result = ${params.result}`);
+        result.append(text1);
+        $("#hasil").append(result);
+    }
+
+    function refreshPage() {
+        window.location.reload();
+    } 
+</script>
+{% endblock %}

@@ -1,15 +1,14 @@
 {% extends 'layout.html' %}
 
 {% block css %}
-  <link href="{{ url_for('static', filename='css/index.css') }}" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
   <div class="container">
-    <section class="foot text-center text-secondary mt-5">
-      <h1 class="title">Penyelesaian Soal Aproksimasi</h1>
+    <h1 class="text-center mt-5">Aproksimasi</h1>
+    <section class="question">
       <p class="mt-5">
-        <span class="text-primary">Contoh Soal:</span>
+        <h5 class="text-primary">Contoh Soal:</h5>
         Dengan menggunakan metode iterasi/perulangan, hitunglah hasil dari e0,5 sampai minimal memiliki 3 angka signifikan!
       </p>
     </section>
@@ -58,7 +57,7 @@
 
 {% block js %}
 <script>
-  const url = "{{base_url}}/aproksimasi";
+  const url = "{{base_url}}/api/aproksimasi";
   const btn_submit = "#submit";
 
   $(document).ready(function() {
@@ -125,6 +124,6 @@
 
   function refreshPage(){
     window.location.reload();
-  } 
+  }
 </script>
 {% endblock %}

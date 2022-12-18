@@ -3,6 +3,7 @@
 
 import os
 from flask import Flask, jsonify, render_template, request
+from flask_cors import CORS
 from app.error import register_error_handler
 from app.exception.http_error import BadRequestException
 from app.libs.utils import safe_int
@@ -11,6 +12,7 @@ from domain.polinomial_newton import PolinomialNewton
 
 os.environ.get("FLASK_ENV", default="production")
 app = Flask(__name__)
+cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 app = register_error_handler(app)
 app.config.from_pyfile(f'{os.getcwd()}/config/config.py')
 
@@ -39,9 +41,9 @@ def aprokmasi_view():
         base_url=base_url
     )
 
-@app.route('/aproksimasi', methods=["POST"])
+@app.route('/api/aproksimasi', methods=["POST"])
 def aprokmasi():
-    data = __get_form_json_input(request.json)
+    data = __get_form_json_input_aproksimasi(request.json)
     
     aprokmasi = Aprokmasi(data)
     error = aprokmasi.prevalidate()
@@ -68,7 +70,15 @@ def introduction_polinom_newton():
         title="Introduction Polinom Newton",
     )
 
-@app.route('/polinom-newton', methods=["POST"])
+@app.route('/polinom-newton', methods=["GET"])
+def polinom_newton_view():
+    return render_template(
+        "polinom-newton.html", 
+        title="Polinomial Newton",
+        base_url=base_url
+    )
+
+@app.route('/api/polinom-newton', methods=["POST"])
 def polinom_newton():
     data = __get_form_json_input_polinom_newton(request.json)
     
@@ -100,7 +110,7 @@ def __get_form_json_input_aproksimasi(args: dict)->dict:
 def __get_form_json_input_polinom_newton(args: dict)->dict:
     """Form json input"""
     return {
-        "input": args.get("input", 0),
+        "xinput": args.get("xinput", 0),
     }
 
 def __check_operation_error(data: dict) -> bool:

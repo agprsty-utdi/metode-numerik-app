@@ -2,7 +2,10 @@
 
 ### Feature
 - [**Aproksimasi Error dan Literasi**](https://agprstyutdi.pythonanywhere.com/introduction-aproksimasi)
+![Result Aproksimasi](static/img/result_aproksimasi.png)
+
 - [**Interpolasi Polinomial Newton**](https://agprstyutdi.pythonanywhere.com/introduction-polinom-newton)
+![Result Polinomial Newton](static/img/result_polinom_newton.png)
 
 ### Requirement
 - Python ^3.9

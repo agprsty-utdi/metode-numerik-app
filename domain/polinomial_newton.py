@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import numpy as np
-from app.libs.utils import safe_float, safe_int
+from app.libs.utils import safe_int
 from app.exception.http_error import MultiValidationException
 
 INPUT = {
@@ -14,7 +14,7 @@ class PolinomialNewton(object):
     xinput: int
 
     def __init__(self, data: dict) -> object:
-        self.xinput = data.get("input", 0)    
+        self.xinput = safe_int(data.get("xinput", 0))
     
     def prevalidate(self) -> MultiValidationException:
         error = MultiValidationException()
@@ -37,7 +37,7 @@ class PolinomialNewton(object):
 
         for k in range(1, n+1):
             for i in range(0, n-k+1):
-                ST[i, k] = (ST[i+1, k-1] - ST[i, k-1])/(x[i+k]-x[i])
+                ST[i, k] = round((ST[i+1, k-1] - ST[i, k-1])/(x[i+k]-x[i]), 5)
 
         p = ST[0,0]
         for i in range(1, n+1):

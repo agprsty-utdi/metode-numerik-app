@@ -1,7 +1,6 @@
 {% extends 'layout.html' %}
 
 {% block css %}
-  <link href="{{ url_for('static', filename='css/index.css') }}" rel="stylesheet">
   <style>
     .container > .body {
       height: 50vh;
@@ -15,9 +14,9 @@
 {% block content %}
   <div class="container p-2">
     <section class="body text-center text-secondary">
-      <h1 class="title mt-5">Welcome To <br> Metode Numerik</h1>
+      <h1 class="title mt-5">Welcome To <br> Program Metode Numerik</h1>
       <div class="feature mt-5">
-        <h3 class="feature__title">Topik</h3>
+        <h3 class="feature__title">Pilih topik:</h3>
         <div class="feature__list">
           <a href="/introduction-aproksimasi" class="btn btn-lg btn-outline-secondary" 
             role="button" aria-pressed="true" target="_blank">Aproksimasi</a>
