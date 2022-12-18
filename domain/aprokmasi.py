@@ -20,7 +20,7 @@ class Aprokmasi(object):
 
         if self.angka_exp == 0 or self.angka_exp > 50:
             error.push_error("angka_exp", "Invalid input angka exponen. Range input 0.1-50.")
-        else:
+        else:   
             self.hasil_angka_exp = safe_float(math.exp(self.angka_exp))
 
         if self.angka_sign == 0 or self.angka_sign > 50:
