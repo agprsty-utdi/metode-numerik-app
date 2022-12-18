@@ -1,8 +1,8 @@
 ## PROGRAM METODE NUMERIK 
 
 ### Feature
-- [**Aproksimasi Error dan Literasi**](agprstyutdi.pythonanywhere.com/introduction-aproksimasi)
-- [**Interpolasi Polinomial Newton**](agprstyutdi.pythonanywhere.com/introduction-polinom-newton)
+- [**Aproksimasi Error dan Literasi**](https://agprstyutdi.pythonanywhere.com/introduction-aproksimasi)
+- [**Interpolasi Polinomial Newton**](https://agprstyutdi.pythonanywhere.com/introduction-polinom-newton)
 
 ### Requirement
 - Python ^3.9
